@@ -7,10 +7,13 @@ public class Analizador {
 
     static HashMap<Integer, Plano> memoria = new HashMap<>();
 
+    public static void init(Plano plano){
+        memoria.put(0, plano);
+    }
+
     public static Plano next(int noPaso, Plano plano) {
-        int siguientePaso = noPaso + 1;
-        if (memoria.containsKey(siguientePaso)) {
-            return memoria.get(siguientePaso);
+        if (memoria.containsKey(noPaso)) {
+            return memoria.get(noPaso);
         } else {
             ArrayList<Avion> nuevosAviones = new ArrayList<>();
             for (Avion avion : plano.getAviones()) {
@@ -18,15 +21,24 @@ public class Analizador {
                 nuevoAvion.mover();
                 nuevosAviones.add(nuevoAvion);
             }
-            Plano planoNuevo = new Plano(siguientePaso, nuevosAviones);
-            memoria.put(siguientePaso, planoNuevo);
+
+             /// Aqui calculamos colisiones
+            ArrayList<Colision> colisiones = new ArrayList<>();
+            for (int i = 0; i < nuevosAviones.size(); i++) {
+                for (int j = i + 1; j < nuevosAviones.size(); j++) {
+                    if (nuevosAviones.get(i).colisionaCon(nuevosAviones.get(j))) {
+                        colisiones.add(new Colision(nuevosAviones.get(j).getX(), nuevosAviones.get(j).getY()));
+                    }
+                }
+            }
+            Plano planoNuevo = new Plano(noPaso, nuevosAviones, colisiones);
+            memoria.put(noPaso, planoNuevo);
             return planoNuevo;
         }
     }
 
     public static Plano prev(int noPaso) {
-        int pasoAnterior = noPaso - 1;
-        return memoria.get(pasoAnterior);
+        return memoria.get(noPaso);
     }
 }
 

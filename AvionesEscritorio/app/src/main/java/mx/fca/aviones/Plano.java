@@ -5,13 +5,17 @@ import java.util.ArrayList;
 public class Plano {
     //Cambio parcialmente
     public ArrayList<Avion> aviones;
+
+    public ArrayList<Colision> colisiones;
+
     public int col;
     public int row;
     public int noPaso;
 
-    public Plano(int noPaso, ArrayList<Avion> aviones) {
+    public Plano(int noPaso, ArrayList<Avion> aviones, ArrayList<Colision> colisiones) {
         this.noPaso = noPaso;
         this.aviones = aviones;
+        this.colisiones = colisiones;
 
         int tmpX = 0;
         int tmpY = 0;
@@ -32,22 +36,12 @@ public class Plano {
     }
 
     public Plano next() {
-        return Analizador.next(noPaso + 1, this);
+        noPaso += 1;
+        return Analizador.next(noPaso, this);
     }
 
     public Plano prev() {
-        return Analizador.prev(noPaso - 1);
-    }
-
-    public int contarColisiones() {
-        int colisiones = 0;
-        for (int i = 0; i < aviones.size(); i++) {
-            for (int j = i + 1; j < aviones.size(); j++) {
-                if (aviones.get(i).colisionaCon(aviones.get(j))) {
-                    colisiones++;
-                }
-            }
-        }
-        return colisiones;
+        noPaso -= 1;
+        return Analizador.prev(noPaso);
     }
 }

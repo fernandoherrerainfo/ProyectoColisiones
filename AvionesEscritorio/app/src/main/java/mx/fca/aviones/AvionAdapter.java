@@ -12,13 +12,13 @@ import java.util.ArrayList;
 public class AvionAdapter extends RecyclerView.Adapter<AvionHolder> {
     //Ningun cambio
 
-    ArrayList<Avion> aviones;
+    Plano plano;
 
     private int gridSize;
 
-    public AvionAdapter(ArrayList<Avion> aviones, int gridSize) {
+    public AvionAdapter(Plano plano, int gridSize) {
 
-        this.aviones = aviones;
+        this.plano = plano;
         this.gridSize = gridSize;
     }
 
@@ -30,12 +30,6 @@ public class AvionAdapter extends RecyclerView.Adapter<AvionHolder> {
         return new AvionHolder(view);
     }
 
-    /*@Override
-    public void onBindViewHolder(@NonNull AvionHolder holder, int position) {
-        Avion avion = aviones.get(position);
-        holder.imgAvion.setImageResource(avion.getImage());
-    }*/
-
     @Override
     public void onBindViewHolder(@NonNull AvionHolder holder, int position) {
         // Calcular la fila y columna basadas en la posición
@@ -45,13 +39,13 @@ public class AvionAdapter extends RecyclerView.Adapter<AvionHolder> {
         boolean collision = false;
 
         // Verificar si hay un avión en la posición actual y si hay colisión
-        for (Avion avion : aviones) {
+        for (Avion avion : plano.getAviones()) {
             if (avion.getX() == col && avion.getY() == row) {
                 holder.imgAvion.setImageResource(avion.getImage());
                 holder.imgAvion.setVisibility(View.VISIBLE);
 
                 // Verificar colisión
-                for (Avion otherAvion : aviones) {
+                for (Avion otherAvion : plano.getAviones()) {
                     if (avion != otherAvion && avion.getX() == otherAvion.getX() && avion.getY() == otherAvion.getY()) {
                         collision = true;
                         break;
