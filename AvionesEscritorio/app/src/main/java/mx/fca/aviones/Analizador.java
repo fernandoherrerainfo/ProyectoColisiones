@@ -8,6 +8,7 @@ public class Analizador {
     static HashMap<Integer, Plano> memoria = new HashMap<>();
 
     public static void init(Plano plano){
+
         memoria.put(0, plano);
     }
 
@@ -38,7 +39,21 @@ public class Analizador {
     }
 
     public static Plano prev(int noPaso) {
+
         return memoria.get(noPaso);
+    }
+    public static int contarColisiones(Plano plano) {
+
+        int colisiones = 0;
+        ArrayList<Avion> aviones = plano.aviones;
+        for (int i = 0; i < aviones.size(); i++) {
+            for (int j = i + 1; j < aviones.size(); j++) {
+                if (aviones.get(i).getX() == aviones.get(j).getX() && aviones.get(i).getY() == aviones.get(j).getY()) {
+                    colisiones++;
+                }
+            }
+        }
+        return colisiones;
     }
 }
 

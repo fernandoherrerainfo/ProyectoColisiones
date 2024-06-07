@@ -6,11 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AvionHolder extends RecyclerView.ViewHolder {
-    ImageView imgCollision;
+
     ImageView imgAvion;
     public AvionHolder(@NonNull View itemView) {
         super(itemView);
         imgAvion = itemView.findViewById(R.id.imgAvion);
-        imgCollision = itemView.findViewById(R.id.imgCollision);
+
     }
 }

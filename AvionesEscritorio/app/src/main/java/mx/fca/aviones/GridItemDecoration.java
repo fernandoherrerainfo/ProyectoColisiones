@@ -35,7 +35,7 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration{
         for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
             int left = child.getLeft();
-            int top = child.getTop();
+            int top = child.getTop() - 10;
             int right = child.getRight();
             int bottom = child.getBottom();
 
@@ -45,13 +45,13 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration{
             canvas.drawLine(right, top, right, bottom, paint);
 
             // If first row, draw the top line
-            if (i < numColumns) {
-                canvas.drawLine(left, top, right, top, paint);
-            }
+            //if (i < numColumns) {
+             //   canvas.drawLine(left, top, right, top, paint);
+           // }
             // If first column, draw the left line
-            if (i % numColumns == 0) {
+           // if (i % numColumns == 0) {
                 canvas.drawLine(left, top, left, bottom, paint);
-            }
+            //}
         }
     }
 
