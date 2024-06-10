@@ -8,9 +8,13 @@ public class Aerolineas {
     //Escenario 1: One collision BIEN
     public static ArrayList<Avion> AEROMEXICO(){
         ArrayList<Avion> aviones = new ArrayList<>();
+        aviones.add(new Avion(Direccion.SOUTH, 0, 0));
         aviones.add(new Avion(Direccion.EAST, 1, 2));
         aviones.add(new Avion(Direccion.SOUTH, 2, 1));
-        aviones.add(new Avion(Direccion.SOUTH, 5, 4));
+        aviones.add(new Avion(Direccion.SOUTH, 5, 5));
+        aviones.add(new Avion(Direccion.SOUTH, 0, 1));
+        aviones.add(new Avion(Direccion.SOUTH, 1, 0));
+        aviones.add(new Avion(Direccion.SOUTH, 4, 4));
 
         return aviones;
     }

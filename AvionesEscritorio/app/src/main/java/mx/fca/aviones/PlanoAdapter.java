@@ -33,9 +33,21 @@ public class PlanoAdapter extends RecyclerView.Adapter<AvionHolder> {
         int maxCol = plano.col;
         int maxRow = plano.row;
 
-        int x = (position % maxRow) - 1;
-        int y = (position / maxCol);
+        int x = (position % (maxRow)) - 1;
+        int y = (position / (maxCol));
 
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+        if (x > (maxCol-1)) {
+            x = (maxCol-1);
+        }
+        if (y > (maxCol-1)) {
+            y = (maxCol-1);
+        }
         Avion avion = plano.getAvion(x,y);
         if (avion == null) {
             // Aqui pones imagen en blanco

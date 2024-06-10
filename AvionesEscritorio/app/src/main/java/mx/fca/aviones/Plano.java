@@ -28,8 +28,8 @@ public class Plano {
                 tmpY = avion.getY();
             }
         }
-        col = tmpX;
-        row = tmpY;
+        col = tmpX + 1;
+        row = tmpY + 1;
     }
 
     public ArrayList<Avion> getAviones() {
@@ -47,7 +47,7 @@ public class Plano {
     }
 
     public int gridSize() {
-        return col * row;
+        return (col) * (row);
     }
 
     public Avion getAvion(int x, int y) {
