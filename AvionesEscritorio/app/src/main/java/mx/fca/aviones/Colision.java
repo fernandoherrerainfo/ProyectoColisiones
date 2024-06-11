@@ -7,6 +7,7 @@ public class Colision {
     int y;
 
     public int image() {
+
         return R.mipmap.collision;
     }
 

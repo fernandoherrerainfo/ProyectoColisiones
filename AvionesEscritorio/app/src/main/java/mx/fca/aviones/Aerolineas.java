@@ -12,8 +12,6 @@ public class Aerolineas {
         aviones.add(new Avion(Direccion.EAST, 1, 2));
         aviones.add(new Avion(Direccion.SOUTH, 2, 1));
         aviones.add(new Avion(Direccion.SOUTH, 5, 5));
-        aviones.add(new Avion(Direccion.SOUTH, 0, 1));
-        aviones.add(new Avion(Direccion.SOUTH, 1, 0));
         aviones.add(new Avion(Direccion.SOUTH, 4, 4));
 
         return aviones;
