@@ -16,20 +16,6 @@ public class Plano {
         this.noPaso = noPaso;
         this.aviones = aviones;
         this.colisiones = colisiones;
-
-        // MAXIMOS
-        int tmpX = 0;
-        int tmpY = 0;
-        for (Avion avion : aviones) {
-            if (avion.getX() > tmpX) {
-                tmpX = avion.getX();
-            }
-            if (avion.getY() > tmpY) {
-                tmpY = avion.getY();
-            }
-        }
-        col = tmpX + 1;
-        row = tmpY + 1;
     }
 
     public ArrayList<Avion> getAviones() {
@@ -47,13 +33,23 @@ public class Plano {
     }
 
     public int gridSize() {
-        return (col) * (row);
+        int size = Analizador.maximo();
+        return (size) * (size);
     }
 
     public Avion getAvion(int x, int y) {
         for (Avion avion: aviones) {
             if (avion.getX() == x && avion.getY() == y){
                 return avion;
+            }
+        }
+        return null;
+    }
+
+    public Colision getColision(int x, int y) {
+        for (Colision colision: colisiones) {
+            if (colision.getX() == x && colision.getY() == y){
+                return colision;
             }
         }
         return null;

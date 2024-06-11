@@ -2,9 +2,13 @@ package mx.fca.aviones;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Predicate;
 
 public class Analizador {
 
+    // Memoria utiliza un hashmap
+    // Llave = numero de paso
+    // Valor = plano
     static HashMap<Integer, Plano> memoria = new HashMap<>();
 
     public static void init(Plano plano){
@@ -24,6 +28,7 @@ public class Analizador {
             }
 
              /// Aqui calculamos colisiones
+            // Por mejorar algoritmo
             ArrayList<Colision> colisiones = new ArrayList<>();
             for (int i = 0; i < nuevosAviones.size(); i++) {
                 for (int j = i + 1; j < nuevosAviones.size(); j++) {
@@ -33,27 +38,35 @@ public class Analizador {
                 }
             }
             Plano planoNuevo = new Plano(noPaso, nuevosAviones, colisiones);
+            for (Colision colision: colisiones) {
+                Avion avion = planoNuevo.getAvion(colision.x, colision.y);
+                if (avion != null){
+                    planoNuevo.aviones.removeIf(p -> p.getX() == avion.getX() && p.getY() == avion.getY() );
+                }
+            }
             memoria.put(noPaso, planoNuevo);
             return planoNuevo;
         }
     }
 
     public static Plano prev(int noPaso) {
-
         return memoria.get(noPaso);
     }
     public static int contarColisiones(Plano plano) {
+        return plano.colisiones.size();
+    }
 
-        int colisiones = 0;
-        ArrayList<Avion> aviones = plano.aviones;
-        for (int i = 0; i < aviones.size(); i++) {
-            for (int j = i + 1; j < aviones.size(); j++) {
-                if (aviones.get(i).getX() == aviones.get(j).getX() && aviones.get(i).getY() == aviones.get(j).getY()) {
-                    colisiones++;
-                }
+    public static int maximo() {
+        // MAXIMOS
+        Plano plano = memoria.get(0);
+        if (plano == null) { return 0; }
+        int tmp = 0;
+        for (Avion avion : plano.getAviones()) {
+            if (avion.getX() > tmp) {
+                tmp = avion.getX();
             }
         }
-        return colisiones;
+        return tmp + 1;
     }
 }
 

@@ -13,6 +13,7 @@ public class Aerolineas {
         aviones.add(new Avion(Direccion.SOUTH, 2, 1));
         aviones.add(new Avion(Direccion.SOUTH, 5, 5));
         aviones.add(new Avion(Direccion.SOUTH, 4, 4));
+        aviones.add(new Avion(Direccion.WEST, 5, 5));
 
         return aviones;
     }

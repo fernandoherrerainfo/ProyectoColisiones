@@ -35,11 +35,7 @@ public class MainActivity extends AppCompatActivity {
         plano = Planificador.crearRutaInicial();
         adapter = new PlanoAdapter(plano);
         listaAviones.setAdapter(adapter);
-        listaAviones.setLayoutManager(new GridLayoutManager(this, plano.col));
-
-        int lineColor = getResources().getColor(android.R.color.black);
-        int lineSize = 6;
-        //listaAviones.addItemDecoration(new GridItemDecoration(lineSize, lineColor));
+        listaAviones.setLayoutManager(new GridLayoutManager(this, Analizador.maximo()));
 
         pasos = 0;
         actualizarUI();

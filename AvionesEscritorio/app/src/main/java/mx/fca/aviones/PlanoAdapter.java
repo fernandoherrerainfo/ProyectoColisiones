@@ -1,16 +1,12 @@
 package mx.fca.aviones;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PlanoAdapter extends RecyclerView.Adapter<AvionHolder> {
-    //Ningun cam
-
     Plano plano;
 
     public PlanoAdapter(Plano plano) {
@@ -29,40 +25,34 @@ public class PlanoAdapter extends RecyclerView.Adapter<AvionHolder> {
     public void onBindViewHolder(@NonNull AvionHolder holder, int position) {
         // Calcular la fila y columna basadas en la posición
         // Verificar si hay un avión en la posición actual y si hay colisión
+        int max = Analizador.maximo();
 
-        int maxCol = plano.col;
-        int maxRow = plano.row;
+        int x = (position % (max));
+        int y = (position / (max));
+        if (x < 0) { x = 0; }
+        if (y < 0) { y = 0; }
+        if (x > (max-1)) { x = (max-1); }
+        if (y > (max-1)) { y = (max-1); }
 
-        int x = (position % (maxRow)) - 1;
-        int y = (position / (maxCol));
-
-        if (x < 0) {
-            x = 0;
-        }
-        if (y < 0) {
-            y = 0;
-        }
-        if (x > (maxCol-1)) {
-            x = (maxCol-1);
-        }
-        if (y > (maxCol-1)) {
-            y = (maxCol-1);
-        }
         Avion avion = plano.getAvion(x,y);
-        if (avion == null) {
-            // Aqui pones imagen en blanco
-            holder.imgAvion.setBackgroundColor(Color.BLACK);
-            holder.imgAvion.setImageResource(0);
-
-        } else {
+        Colision colision = plano.getColision(x, y);
+        if (avion != null) {
             holder.imgAvion.setImageResource(avion.getImage());
+            return;
         }
+        if (colision != null){
+            holder.imgAvion.setImageResource(colision.getImage());
+            return;
+        }
+        holder.imgAvion.setImageResource(R.mipmap.ic_launcher);
+
     }
 
     @Override
     public int getItemCount() {
+        // Obtiene el grid original
         Plano plano = Analizador.memoria.get(0);
-        assert plano != null;
+        if (plano == null) { return 0; }
         return plano.gridSize();
     }
 }
